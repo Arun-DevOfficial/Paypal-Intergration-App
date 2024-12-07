@@ -5,7 +5,7 @@ export default function PaypalButtons() {
   // Create an order
   const OnCreateOrder = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/paypal/createOrder");
+      const response = await axios.post("/paypal/createOrder");
       const { orderId } = response.data;
       console.log("Order ID:", orderId);
 
@@ -27,14 +27,14 @@ export default function PaypalButtons() {
 
       // Call your backend to capture the payment
       const response = await axios.get(
-        `http://localhost:5000/paypal/capturePayment/${orderID}`,
+        `/paypal/capturePayment/${orderID}`,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
       const captureData = response.data.paymentData;
       console.log("Payment captured successfully:", captureData);
-      window.location.href = "http://localhost:5173/success";
+      window.location.href = "/success";
 
       // Redirect to the success page
     } catch (error) {
